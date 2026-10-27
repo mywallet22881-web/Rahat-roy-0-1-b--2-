@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rahat Video Gallery</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #101116;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 22px 16px;
+      background: #1c1d25;
+      border-bottom: 1px solid #383945;
+    }
+    h1 { margin: 0; color: #ff4778; }
+    main { padding: 18px; max-width: 800px; margin: auto; }
+    .panel {
+      background: #20212b;
+      border: 1px solid #393a47;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input { background: #101116; color: white; border: 1px solid #555; }
+    button {
+      background: #ff4778;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+    .note { color: #c3c4d0; line-height: 1.6; }
+    .post {
+      padding: 12px 0;
+      border-bottom: 1px solid #393a47;
+      overflow-wrap: anywhere;
+    }
+    .post video, .post img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rahat Video Gallery</h1>
+    <p>ছবি ও ভিডিও গ্যালারি</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>ছবি বা ভিডিও জমা দাও</h2>
+      <p class="note">
+        জমা দেওয়া ফাইল অনুমোদনের আগে প্রকাশিত হবে না।
+        শুধু নিজের বা প্রকাশের অনুমতি পাওয়া ফাইল দাও।
+      </p>
+
+      <form id="uploadForm">
+        <label for="media">ছবি বা ভিডিও নির্বাচন করো</label>
+        <input id="media" type="file"
+          accept="image/*,video/*" required>
+        <button type="submit">জমা দাও</button>
+      </form>
+      <p id="message" class="note"></p>
+    </section>
+
+    <section class="panel">
+      <h2>অনুমোদিত পোস্ট</h2>
+      <div id="gallery">
+        <p class="note">এখনো কোনো প্রকাশিত পোস্ট নেই।</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const media = document.getElementById("media");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const file = media.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith("image/") &&
+          !file.type.startsWith("video/")) {
+        message.textContent = "শুধু ছবি বা ভিডিও নির্বাচন করো।";
+        return;
+      }
+
+      message.textContent =
+        "ডেমো সফল! ফাইলটি শুধু এই পেজে নির্বাচিত হয়েছে। " +
+        "এখনো সার্ভারে আপলোড হয়নি বা অ্যাডমিনের কাছে যায়নি।";
+
+      media.value = "";
+    });
+  </script>
+</body>
+</html>
